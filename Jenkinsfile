@@ -5,9 +5,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script{
-                    ls
-                    sudo docker build prateekjaindev/flask-app .
-                    sudo docker tag build prateekjaindev/flask-app build prateekjaindev/flask-app
+                    sh "ls"
+                    sh "sudo docker build prateekjaindev/flask-app ."
+                    sh "sudo docker tag build prateekjaindev/flask-app build prateekjaindev/flask-app"
                 }
             }
         }
