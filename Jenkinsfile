@@ -4,13 +4,14 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                echo 'Build Docker Image'
+                sudo docker build prateekjaindev/flask-app .
+                sudo docker tag build prateekjaindev/flask-app build prateekjaindev/flask-app:v1
             }
         }
         
          stage('Pushing Image to DockerHub') {
             steps {
-                echo 'Pushing Image to DockerHub'
+               # sudo docker push prateekjaindev/flask-app:v1
             }
         }
     }
