@@ -5,7 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sudo docker build prateekjaindev/flask-app .
-                sudo docker tag build prateekjaindev/flask-app build prateekjaindev/flask-app:v1
+                sudo docker tag build prateekjaindev/flask-app build prateekjaindev/flask-app
             }
         }
         
