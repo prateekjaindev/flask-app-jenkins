@@ -1,13 +1,24 @@
+#!/usr/bin/env groovy
+
+def gv
+
 pipeline {
     agent any
 
     stages {
+
+        stage("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script{
-                    sh "ls"
-                    sh "docker build -t flask-app ."
-                   
+                   gv.buildImage()
                 }
             }
         }
@@ -15,10 +26,7 @@ pipeline {
          stage('Pushing Image to DockerHub') {
             steps {
                 script {
-                    sh "docker tag flask-app prateekjain/flask-app:v1"
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                    sh "echo $PASS | docker login -u $USER --password-stdin"
-                    sh "docker push prateekjain/flask-app:v1"
+                    gv.pushImage()
                     }
                 }
             }
