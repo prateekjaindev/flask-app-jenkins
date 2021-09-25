@@ -11,7 +11,7 @@ pipeline {
         
          stage('Pushing Image to DockerHub') {
             steps {
-               # sudo docker push prateekjaindev/flask-app:v1
+               echo "Pending..!!"
             }
         }
     }
