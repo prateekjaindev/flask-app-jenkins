@@ -15,7 +15,7 @@ pipeline {
          stage('Pushing Image to DockerHub') {
             steps {
                 script {
-                     sh "docker tag build prateekjaindev/flask-app build prateekjaindev/flask-app"
+                     sh "docker tag prateekjaindev/flask-app build prateekjaindev/flask-app"
                     echo "Pending..!!"
                 }
             }
