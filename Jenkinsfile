@@ -4,6 +4,9 @@ def gv
 
 pipeline {
     agent any
+    options {
+        timeout(time: 1, unit: 'HOURS') 
+    }
 
     stages {
 
@@ -14,7 +17,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('GitGuardian Scan') {
             agent {
                 docker { image 'gitguardian/ggshield:latest' }
