@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-
+/*
         stage('GitGuardian Scan') {
             agent {
                 docker { image 'gitguardian/ggshield:latest' }
@@ -34,7 +34,7 @@ pipeline {
                 sh 'ggshield scan ci'
             }
         }
-
+*/
         stage('Build Docker Image') {
             when {
                 expression {
