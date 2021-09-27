@@ -28,11 +28,6 @@ pipeline {
         }
 */
         stage('Build Docker Image') {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
-            }
             steps {
                 script{
                    gv.buildImage()
@@ -41,11 +36,6 @@ pipeline {
         }
         
          stage('Pushing Image to DockerHub') {
-            when {
-                expression {
-                    BRANCH_NAME == 'master'
-                }
-            }
             steps {
                 script {
                     gv.pushImage()
