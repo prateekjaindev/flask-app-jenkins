@@ -7,14 +7,6 @@ pipeline {
 
     stages {
 
-        stage("test") {
-            steps {
-                script {
-                    echo "Branch Name $BRANCH_NAME"
-                }
-            }
-        }
-
         stage("init") {
             steps {
                 script {
