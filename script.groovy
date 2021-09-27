@@ -9,6 +9,7 @@ def pushImage() {
     sh "echo $PASS | docker login -u $USER --password-stdin"
     sh "docker push prateekjain/flask-app:v1"
     }
+
 }
 
 return this
