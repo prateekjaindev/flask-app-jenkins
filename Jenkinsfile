@@ -45,6 +45,16 @@ pipeline {
                     }
                 }
             }
+         stage('Deploy to EC2') {
+             steps {
+                 script {
+                     def dockerCmd = 'docker run -p 5000:5000 prateekjain/flask-app:v1'
+                     sshagent(['ec2-key']) {
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@52.66.224.110 ${dockerCmd}"
+                    }
+                 }
+             }
+         }
         }
     }
 
