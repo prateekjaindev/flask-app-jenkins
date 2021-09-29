@@ -48,9 +48,10 @@ pipeline {
          stage('Deploy to EC2') {
              steps {
                  script {
-                     def dockerCmd = 'sudo docker stop flask-app && sudo docker rm flask-app && sudo docker run -dit -p 5000:5000 --name flask-app prateekjain/flask-app:v1'
+                     def dockerCompose = "docker-compose -f docker-compose.yaml up --detach"
                      sshagent(['ec2-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@52.66.224.110 ${dockerCmd}"
+                        sh "scp docker-compose.yaml ubuntu@52.66.224.110:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@52.66.224.110 ${dockerCompose}"
                     }
                  }
              }
