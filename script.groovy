@@ -4,10 +4,10 @@ def buildImage() {
 }
 
 def pushImage() {
-    sh "docker tag flask-app prateekjain/flask-app:v1"
+    sh "docker tag flask-app prateekjain/flask-app:v2"
     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
     sh "echo $PASS | docker login -u $USER --password-stdin"
-    sh "docker push prateekjain/flask-app:v1"
+    sh "docker push prateekjain/flask-app:v2"
     }
 
 }

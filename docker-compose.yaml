@@ -1,5 +1,5 @@
 app:
-  image: prateekjain/flask-app:v1
+  image: prateekjain/flask-app:v2
   ports:
     - "5000:5000"
   volumes:
