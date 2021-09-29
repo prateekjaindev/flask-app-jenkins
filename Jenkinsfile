@@ -48,7 +48,7 @@ pipeline {
          stage('Deploy to EC2') {
              steps {
                  script {
-                     def dockerCompose = "docker-compose -f docker-compose.yaml up --detach"
+                     def dockerCompose = "sudo docker-compose -f docker-compose.yaml up --detach"
                      sshagent(['ec2-key']) {
                         sh "scp docker-compose.yaml ubuntu@52.66.224.110:/home/ubuntu"
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@52.66.224.110 ${dockerCompose}"
