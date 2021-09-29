@@ -48,7 +48,7 @@ pipeline {
          stage('Deploy to EC2') {
              steps {
                  script {
-                     def dockerCmd = 'sudo docker run -dit -p 5000:5000 prateekjain/flask-app:v1 --name flask-app'
+                     def dockerCmd = 'sudo docker run -dit -p 5000:5000 --name flask-app prateekjain/flask-app:v1'
                      sshagent(['ec2-key']) {
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@52.66.224.110 ${dockerCmd}"
                     }
