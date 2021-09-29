@@ -1,5 +1,5 @@
 app:
-  image: prateekjain/flask-app
+  image: prateekjain/flask-app:v1
   command: python -u app.py
   ports:
     - "5000:5000"
