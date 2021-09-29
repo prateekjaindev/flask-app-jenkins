@@ -2,8 +2,6 @@ app:
   image: prateekjain/flask-app:v2
   ports:
     - "5000:5000"
-  volumes:
-    - .:/app
   links:
     - db
 db:
