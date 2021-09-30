@@ -50,7 +50,7 @@ pipeline {
         stage('Provision EC2') {
              environment {
                     AWS_ACCESS_KEY_ID = credentials('aws_access_key')
-                    AWS_ACCESS_SECRET_KEY = credentials('aws_secret_key')
+                    AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key')
                 }
             steps {
                 script {
