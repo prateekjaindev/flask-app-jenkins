@@ -54,8 +54,7 @@ pipeline {
                     AWS_ACCESS_SECRET_KEY = credentials('aws_secret_key')
                     TF_VAR_env_prefix = 'test'
                 }
-            }
-        }
+
                 script {
                     dir('terraform')
                         sh "terraform init"
@@ -65,8 +64,8 @@ pipeline {
                             returnStdout: true
                         ).trim()
                     }
-                }
             }
+        }
         stage('Deploy to EC2') {
              steps {
                  script {
