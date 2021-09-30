@@ -38,21 +38,45 @@ pipeline {
             }
         }
         
-         stage('Pushing Image to DockerHub') {
+        stage('Pushing Image to DockerHub') {
             steps {
                 script {
                     gv.pushImage()
                     }
                 }
             }
-         stage('Deploy to EC2') {
+
+        stage('Provision EC2') {
+            steps {
+                environment {
+                    AWS_ACCESS_KEY_ID = credentials('aws_access_key')
+                    AWS_ACCESS_SECRET_KEY = credentials('aws_secret_key')
+                    TF_VAR_env_prefix = 'test'
+                }
+                script {
+                    dir('terraform')
+                        sh "terraform init"
+                        sh "terraform apply --auto-approve"
+                        EC2_PUBLIC_IP = sh(
+                            script: "terraform output ec2_public_ip"
+                            returnStdout: true
+                        ).trim()
+                    }
+                }
+            }
+        stage('Deploy to EC2') {
              steps {
                  script {
+                     sh " figlet -w 1000 Creating EC2 Instace...!"
+                     sleep(time: 90, unit: "SECOND")
+
+                     sh " figlet -w 1000 Installing Packages...!"
                      def shellCmd = "bash ./commands.sh"
+                     def ec2Instance = "ubuntu@${EC2_PUBLIC_IP}"
                      sshagent(['ec2-key']) {
-                        sh "scp commands.sh ubuntu@52.66.224.110:/home/ubuntu"
-                        sh "scp docker-compose.yaml ubuntu@52.66.224.110:/home/ubuntu"
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@52.66.224.110 ${shellCmd}"
+                        sh "scp -o StrictHostKeyChecking=no commands.sh ${ec2Instance}:/home/ubuntu"
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
                     }
                  }
              }
