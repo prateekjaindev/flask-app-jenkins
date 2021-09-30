@@ -48,13 +48,12 @@ pipeline {
             }
 
         stage('Provision EC2') {
-            steps {
-                environment {
+             environment {
                     AWS_ACCESS_KEY_ID = credentials('aws_access_key')
                     AWS_ACCESS_SECRET_KEY = credentials('aws_secret_key')
                     TF_VAR_env_prefix = 'test'
                 }
-
+            steps {
                 script {
                     dir('terraform')
                         sh "terraform init"
