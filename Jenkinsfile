@@ -39,7 +39,7 @@ pipeline {
             }
         }
         
-        stage('Pushing Image to DockerHub') {
+        stage('Pushing Image to Docker Repo') {
             steps {
                 script {
                     gv.pushImage()
