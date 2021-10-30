@@ -56,7 +56,14 @@ pipeline {
              }
          }
          stage('Delpoy to EKS') {
-             
+                steps {
+                    script {
+                        def dockerCmd = 'sudo docker stop flask-app && sudo docker rm flask-app && sudo docker run -dit -p 5000:5000 --name flask-app prateekjain/flask-app:v1'
+                        sshagent(['eks-key']) {
+                            sh "ssh -o StrictHostKeyChecking=no ubuntu@$(cat eks-key | grep '^export EKS_PUBLIC_IP=' | cut -d'=' -f2) ${dockerCmd}"
+                        }
+                    }
+                }
          }
         }
     }
